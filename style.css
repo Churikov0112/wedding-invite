@@ -1,4 +1,3 @@
-/* Reset и базовые стили */
 body, html {
   margin: 0;
   padding: 0;
@@ -9,34 +8,27 @@ body, html {
   overflow-x: hidden;
 }
 
-/* Секция с видео */
 .video-section {
-  position: sticky;
-  top: 0;
+  position: relative;
   width: 100%;
-  height: 100vh;
-  z-index: 100;
   background: #f5f5dc;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  overflow: hidden;
 }
 
 .video-wrapper {
   position: relative;
-  height: 100%;
-  max-width: 100%;
   overflow: hidden;
 }
 
 /* Видео с сохранением пропорций */
 #wedding-video {
-  height: 100%;
-  width: auto;
   display: block;
 }
 
-/* Плашка с именами (привязана к видео) */
+/* Плашка с именами */
 .names-plate {
   position: absolute;
   top: 10px;
@@ -49,6 +41,18 @@ body, html {
   border-radius: 6px;
   backdrop-filter: blur(3px);
   z-index: 2;
+}
+
+/* Полоса на стыке видео и блока */
+.transition-block {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(50%);
+  height: 40px; /* высота полосы */
+  background: #c0a060;
+  opacity: 0.5;
+  z-index: 300;
 }
 
 /* Контентная секция */
@@ -65,29 +69,37 @@ body, html {
   margin: 0 auto;
 }
 
-/* Адаптация под портретный режим */
-@media (orientation: portrait) {
-  .video-wrapper {
-    width: 100%;
-    height: auto;
+/* Альбомный режим */
+@media (orientation: landscape) {
+  .video-section {
+    height: 100vh;
   }
-  
+
+  .video-wrapper {
+    width: auto;
+    height: 100%;
+  }
+
   #wedding-video {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
   }
 }
 
-/* Адаптация под альбомный режим */
-@media (orientation: landscape) {
-  .video-wrapper {
-    width: auto;
-    height: 100%;
+/* Портретный режим */
+@media (orientation: portrait) {
+  .video-section {
+    width: 100%;
   }
-  
+
+  .video-wrapper {
+    width: 100%;
+    height: auto;
+  }
+
   #wedding-video {
-    width: auto;
-    height: 100%;
+    width: 100%;
+    height: auto;
   }
 }
 
