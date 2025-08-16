@@ -45,13 +45,12 @@ body, html {
 
 /* Полоса на стыке видео и блока */
 .transition-block {
-  position: absolute;
-  bottom: 0;
+  position: absolute; /* теперь относительно body */
   left: 50%;
-  transform: translateX(-50%) translateY(50%);
-  height: 40px; /* высота полосы */
+  transform: translateX(-50%) translateY(-50%);
+  height: 40px;
   background: #c0a060;
-  opacity: 0.5;
+  opacity: 0.8;
   z-index: 300;
 }
 

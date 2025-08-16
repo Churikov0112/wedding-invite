@@ -22,10 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Функция подгоняет ширину полосы под ширину видео
-  function updateTransitionWidth() {
+  function updateTransitionPosition() {
     const videoRect = video.getBoundingClientRect();
+    const scrollTop = window.scrollY || window.pageYOffset;
     transitionBlock.style.width = videoRect.width + 'px';
+    // Центр полосы = нижний край видео относительно документа
+    transitionBlock.style.top = scrollTop + videoRect.bottom + 'px';
   }
 
   function playVideo() {
@@ -54,26 +56,24 @@ document.addEventListener('DOMContentLoaded', () => {
     lastScrollY = window.scrollY;
   }
 
-  // Подгоняем ширину полосы после загрузки метаданных видео
-  video.addEventListener('loadedmetadata', updateTransitionWidth);
+  video.addEventListener('loadedmetadata', updateTransitionPosition);
 
-  // Инициализация
   resizeVideo();
-  updateTransitionWidth();
+  updateTransitionPosition();
   playVideo();
 
-  // События
   window.addEventListener('resize', () => {
     resizeVideo();
-    updateTransitionWidth();
+    updateTransitionPosition();
   });
+
   window.addEventListener('orientationchange', () => {
     resizeVideo();
-    updateTransitionWidth();
+    updateTransitionPosition();
   });
+
   window.addEventListener('scroll', handleScroll);
 
-  // Один клик для запуска видео на мобильных, если автозапуск заблокирован
   document.addEventListener('click', () => {
     video.play().catch(() => {});
   }, { once: true });
