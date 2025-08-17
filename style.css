@@ -90,15 +90,18 @@ body, html {
     object-position: center;
   }
 }
-
 .transition-block {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  height: 40px;
-  background: #c0a060;
-  opacity: 0.8;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
   z-index: 300;
+}
+
+.transition-block img {
+  width: 100%;      /* растягиваем на всю ширину экрана */
+  height: auto;     /* сохраняем пропорции */
+  display: block;   /* убираем пробелы под изображением */
 }
 
 .content-section {
