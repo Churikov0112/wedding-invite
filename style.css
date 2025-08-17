@@ -72,11 +72,12 @@ body, html {
   object-fit: cover;
   display: block;
   transform: scaleY(-1);
+  position: relative;
+  z-index: 1;
 }
 
-/* Градиент поверх картинки */
-.image-wrapper::after {
-  content: '';
+/* Градиент поверх forest.png */
+.gradient-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -84,6 +85,66 @@ body, html {
   height: 100%;
   background: linear-gradient(to bottom, rgba(254,250,238,0) 0%,  #FEFAEE 20%);
   pointer-events: none;
+  z-index: 2;
+}
+
+/* Дополнительные картинки поверх forest.png */
+.image-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.image-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+
+/* Альбомная ориентация — две картинки слева и справа */
+@media (orientation: landscape) {
+  .image-wrapper::before {
+    left: 0;
+    width: 50%;
+    background-image: url('assets/arc_desktop.png');
+    background-position: left center;
+  }
+
+  .image-wrapper::after {
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    background-image: url('assets/data_desktop.png');
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+/* Портретная ориентация — одна картинка на всю ширину */
+@media (orientation: portrait) {
+  .image-wrapper::before {
+    left: 0;
+    width: 100%;
+    background-image: url('assets/arc_and_data_mobile.png');
+    background-position: center;
+  }
+
+  .image-wrapper::after {
+    /* ничего не перекрываем — градиент через .gradient-overlay */
+    content: '';
+  }
 }
 
 /* Landscape — 16/9 */
