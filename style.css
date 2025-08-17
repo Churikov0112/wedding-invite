@@ -4,7 +4,7 @@ body, html {
   padding: 0;
   font-family: 'Arial', sans-serif;
   scroll-behavior: smooth;
-  background: #f5f5dc;
+  background: #FEFAEE;
   overscroll-behavior-y: none;
   overflow-x: hidden;
 }
@@ -13,7 +13,7 @@ body, html {
 .video-section {
   position: relative;
   width: 100%;
-  background: #f5f5dc;
+  background: #FEFAEE;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -55,14 +55,14 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .image-wrapper {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* Само изображение */
@@ -83,7 +83,7 @@ body, html {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(254,250,238,0) 0%,  #FEFAEE 20%);
+  background: linear-gradient(to bottom, rgba(254,250,238,0) 0%, #FEFAEE 20%);
   pointer-events: none;
   z-index: 2;
 }
@@ -92,9 +92,10 @@ body, html {
 .image-wrapper::before {
   content: '';
   position: absolute;
-  top: 0;
+  top: 25%;
   left: 0;
   height: 100%;
+  width: 100%;
   pointer-events: none;
   z-index: 3;
   background-size: contain;
@@ -105,7 +106,7 @@ body, html {
 .image-wrapper::after {
   content: '';
   position: absolute;
-  top: 0;
+  top: 25%;
   left: 0;
   width: 100%;
   height: 100%;
@@ -115,18 +116,19 @@ body, html {
 /* Альбомная ориентация — две картинки слева и справа */
 @media (orientation: landscape) {
   .image-wrapper::before {
-    left: 0;
-    width: 50%;
+    left: 5%; /* Отступ слева */
+    width: 45%; /* Уменьшена ширина для учета отступов */
     background-image: url('assets/arc_desktop.png');
-    background-position: left center;
+    background-position: center; /* Центрирование для равномерного скейлинга */
+    background-size: contain;
   }
 
   .image-wrapper::after {
     left: 50%;
-    width: 50%;
+    width: 45%; /* Такая же ширина, как у arc_desktop.png для симметрии */
     height: 100%;
     background-image: url('assets/data_desktop.png');
-    background-position: right center;
+    background-position: center; /* Центрирование для равномерного скейлинга */
     background-repeat: no-repeat;
     background-size: contain;
   }
@@ -142,7 +144,6 @@ body, html {
   }
 
   .image-wrapper::after {
-    /* ничего не перекрываем — градиент через .gradient-overlay */
     content: '';
   }
 }
@@ -186,8 +187,9 @@ body, html {
 .content-section {
   position: relative;
   z-index: 10;
-  background: #f5f5dc;
+  background: #FEFAEE;
   min-height: 100vh;
+  margin-top: 50%;
 }
 
 .content-wrapper {
