@@ -8,6 +8,7 @@ body, html {
   overflow-x: hidden;
 }
 
+/* Видео */
 .video-section {
   position: relative;
   width: 100%;
@@ -20,15 +21,17 @@ body, html {
 
 .video-wrapper {
   position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
 }
 
-/* Видео с сохранением пропорций */
 #wedding-video {
-  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* Плашка с именами */
 .names-plate {
   position: absolute;
   top: 10px;
@@ -43,9 +46,53 @@ body, html {
   z-index: 2;
 }
 
-/* Полоса на стыке видео и блока */
+/* Картинка после видео */
+.image-section {
+  position: relative;
+  width: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* по умолчанию альбомное */
+  overflow: hidden;
+}
+
+#under-video-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scaleY(-1); /* зеркалка по горизонтали */
+}
+
+/* Landscape — 16/9 */
+@media (orientation: landscape) {
+  .video-wrapper,
+  .image-wrapper {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* Portrait — квадрат */
+@media (orientation: portrait) {
+  .video-wrapper,
+  .image-wrapper {
+    aspect-ratio: 1 / 1;
+  }
+  #wedding-video,
+  #under-video-image {
+    object-position: center;
+  }
+}
+
 .transition-block {
-  position: absolute; /* теперь относительно body */
+  position: absolute;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   height: 40px;
@@ -54,7 +101,6 @@ body, html {
   z-index: 300;
 }
 
-/* Контентная секция */
 .content-section {
   position: relative;
   z-index: 10;
@@ -68,41 +114,6 @@ body, html {
   margin: 0 auto;
 }
 
-/* Альбомный режим */
-@media (orientation: landscape) {
-  .video-section {
-    height: 100vh;
-  }
-
-  .video-wrapper {
-    width: auto;
-    height: 100%;
-  }
-
-  #wedding-video {
-    width: auto;
-    height: 100%;
-  }
-}
-
-/* Портретный режим */
-@media (orientation: portrait) {
-  .video-section {
-    width: 100%;
-  }
-
-  .video-wrapper {
-    width: 100%;
-    height: auto;
-  }
-
-  #wedding-video {
-    width: 100%;
-    height: auto;
-  }
-}
-
-/* Кнопка воспроизведения */
 .play-button {
   position: fixed;
   top: 50%;

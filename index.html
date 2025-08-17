@@ -5,19 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Свадебное приглашение</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="preload" href="assets/video.mp4" as="video">
+  <link rel="preload" href="assets/forest.mp4" as="video">
 </head>
 <body>
   <section class="video-section">
     <div class="video-wrapper">
       <video id="wedding-video" autoplay muted loop playsinline webkit-playsinline>
-        <source src="assets/video.mp4" type="video/mp4">
+        <source src="assets/forest.mp4" type="video/mp4">
       </video>
       <div class="names-plate">Анна & Иван</div>
     </div>
   </section>
 
-  <div class="transition-block"></div> <!-- Плашка вынесена сюда -->
+  <!-- Картинка как отдельный блок после видео -->
+  <section class="image-section">
+    <div class="image-wrapper">
+      <img src="assets/forest.png" alt="Лес" id="under-video-image">
+    </div>
+  </section>
+
+  <div class="transition-block"></div>
 
   <section class="content-section">
     <div class="content-wrapper">
