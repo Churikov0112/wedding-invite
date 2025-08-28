@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'beaumarchaisc';
+  src: url('fonts/beaumarchaisc.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Faberge';
+  src: url('fonts/Faberge-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Общие стили */
 body, html {
   margin: 0;
