@@ -203,7 +203,7 @@ body, html {
   z-index: 10;
   background: #FEFAEE;
   min-height: 100vh;
-  margin-top: 50%;
+  margin-top: 20%;
 }
 
 .content-wrapper {
@@ -211,6 +211,22 @@ body, html {
   max-width: 800px;
   margin: 0 auto;
 }
+
+/* Увеличиваем размер текста "Что вас ждет" */
+.content-wrapper h2 {
+  font-size: clamp(36px, 7vw, 64px);
+  margin: 0;
+  line-height: 1.1;
+  font-weight: normal;
+}
+
+/* Стили для добавленного текста */
+.content-wrapper p {
+  margin: 0;
+  color: #333;
+}
+
+
 
 /* Кнопка воспроизведения (для мобильных, если блокировка autoplay) */
 .play-button {
