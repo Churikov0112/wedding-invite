@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCarousel();
 });
 
-// Карусель гостей - ОБНОВЛЕННАЯ ЛОГИКА
+// Карусель гостей - ОБНОВЛЕННАЯ ЛОГИКА (бесконечная, без автоплея)
 function initCarousel() {
   const carouselTrack = document.getElementById('carousel-track');
   const prevBtn = document.querySelector('.prev-btn');
@@ -69,80 +69,92 @@ function initCarousel() {
   ];
 
   let currentIndex = 0;
-  let autoPlayInterval;
-  let cardsPerView = getCardsPerView();
+  let isAnimating = false;
 
-  // Создаем карточки
-  guestImages.forEach((imageSrc, index) => {
-    const card = document.createElement('div');
-    card.className = 'carousel-card';
-    card.innerHTML = `<img src="${imageSrc}" alt="Гость ${index + 1}" loading="lazy">`;
-    carouselTrack.appendChild(card);
-  });
+  // Создаем карточки + добавляем клоны для бесконечности
+  function createCarouselCards() {
+    carouselTrack.innerHTML = '';
+    
+    // Добавляем клон последней карточки в начало
+    const lastCardClone = document.createElement('div');
+    lastCardClone.className = 'carousel-card';
+    lastCardClone.innerHTML = `<img src="${guestImages[guestImages.length - 1]}" alt="Гость ${guestImages.length}" loading="lazy">`;
+    carouselTrack.appendChild(lastCardClone);
 
-  function getCardsPerView() {
-    const width = window.innerWidth;
-    if (width < 768) return 1;
-    if (width < 1024) return 2;
-    return 3;
+    // Добавляем основные карточки
+    guestImages.forEach((imageSrc, index) => {
+      const card = document.createElement('div');
+      card.className = 'carousel-card';
+      card.innerHTML = `<img src="${imageSrc}" alt="Гость ${index + 1}" loading="lazy">`;
+      carouselTrack.appendChild(card);
+    });
+
+    // Добавляем клон первой карточки в конец
+    const firstCardClone = document.createElement('div');
+    firstCardClone.className = 'carousel-card';
+    firstCardClone.innerHTML = `<img src="${guestImages[0]}" alt="Гость 1" loading="lazy">`;
+    carouselTrack.appendChild(firstCardClone);
   }
 
   function updateCarousel() {
+    if (isAnimating) return;
+    
+    isAnimating = true;
     const cardWidth = carouselTrack.children[0].offsetWidth + 20; // + gap
     const translateX = -currentIndex * cardWidth;
+    
+    carouselTrack.style.transition = 'transform 0.5s ease-in-out';
     carouselTrack.style.transform = `translateX(${translateX}px)`;
+    
+    setTimeout(() => {
+      isAnimating = false;
+      
+      // Бесконечная прокрутка - перескакиваем на клон без анимации
+      if (currentIndex === guestImages.length + 1) {
+        currentIndex = 1;
+        carouselTrack.style.transition = 'none';
+        carouselTrack.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
+      }
+      
+      if (currentIndex === 0) {
+        currentIndex = guestImages.length;
+        carouselTrack.style.transition = 'none';
+        carouselTrack.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
+      }
+    }, 500);
   }
 
   function nextSlide() {
-    if (currentIndex < guestImages.length - cardsPerView) {
-      currentIndex++;
-    } else {
-      currentIndex = 0; // Возврат к началу
-    }
+    currentIndex++;
     updateCarousel();
   }
 
   function prevSlide() {
-    if (currentIndex > 0) {
-      currentIndex--;
-    } else {
-      currentIndex = guestImages.length - cardsPerView; // Переход к концу
-    }
+    currentIndex--;
     updateCarousel();
   }
 
-  function startAutoPlay() {
-    autoPlayInterval = setInterval(nextSlide, 4000);
-  }
-
-  function stopAutoPlay() {
-    clearInterval(autoPlayInterval);
-  }
+  // Инициализация карусели
+  createCarouselCards();
+  
+  // Устанавливаем начальную позицию (первая настоящая карточка)
+  currentIndex = 1;
+  const cardWidth = carouselTrack.children[0].offsetWidth + 20;
+  carouselTrack.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
 
   // Обработчики событий
   nextBtn.addEventListener('click', () => {
-    nextSlide();
-    stopAutoPlay();
-    startAutoPlay();
+    if (!isAnimating) nextSlide();
   });
 
   prevBtn.addEventListener('click', () => {
-    prevSlide();
-    stopAutoPlay();
-    startAutoPlay();
+    if (!isAnimating) prevSlide();
   });
-
-  // Пауза автовоспроизведения при наведении
-  carouselTrack.addEventListener('mouseenter', stopAutoPlay);
-  carouselTrack.addEventListener('mouseleave', startAutoPlay);
 
   // Адаптация к изменению размера окна
   window.addEventListener('resize', () => {
-    cardsPerView = getCardsPerView();
-    updateCarousel();
+    const cardWidth = carouselTrack.children[0].offsetWidth + 20;
+    carouselTrack.style.transition = 'none';
+    carouselTrack.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
   });
-
-  // Запуск автовоспроизведения
-  startAutoPlay();
-  updateCarousel();
 }
