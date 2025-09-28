@@ -226,7 +226,100 @@ body, html {
   color: #333;
 }
 
+/* Карусель гостей */
+.guests-section {
+  margin-top: 80px;
+  padding: 0 20px;
+}
 
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap: 20px;
+  padding: 0 60px;
+}
+
+.carousel-card {
+  flex: 0 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 2px solid #e8d8b6;
+  background: white;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.carousel-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Размеры карточек для разных экранов */
+@media (max-width: 768px) {
+  .carousel-card {
+    width: 280px;
+    height: 350px;
+  }
+  .carousel-track {
+    padding: 0 40px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .carousel-card {
+    width: 220px;
+    height: 280px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .carousel-card {
+    width: 250px;
+    height: 320px;
+  }
+}
+
+/* Кнопки управления каруселью */
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.carousel-btn {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  background: #e8d8b6;
+  color: #5a4a3a;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-btn:hover {
+  background: #d4c4a4;
+  transform: scale(1.1);
+}
+
+.carousel-btn:active {
+  transform: scale(0.95);
+}
 
 /* Кнопка воспроизведения (для мобильных, если блокировка autoplay) */
 .play-button {

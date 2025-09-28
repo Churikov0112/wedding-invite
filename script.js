@@ -48,4 +48,93 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', () => {
     video.play().catch(() => {});
   }, { once: true });
+
+  // Инициализация карусели
+  initCarousel();
 });
+
+// Карусель гостей
+function initCarousel() {
+  const carouselTrack = document.getElementById('carousel-track');
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
+  
+  const guestImages = [
+    'assets/guest1.jpg',
+    'assets/guest2.jpg',
+    'assets/guest3.jpg',
+    'assets/guest4.jpg',
+    'assets/guest5.jpg',
+    'assets/guest6.jpg'
+  ];
+
+  let currentIndex = 0;
+  let autoPlayInterval;
+  let cardsPerView = getCardsPerView();
+
+  // Создаем карточки
+  guestImages.forEach((imageSrc, index) => {
+    const card = document.createElement('div');
+    card.className = 'carousel-card';
+    card.innerHTML = `<img src="${imageSrc}" alt="Гость ${index + 1}" loading="lazy">`;
+    carouselTrack.appendChild(card);
+  });
+
+  function getCardsPerView() {
+    const width = window.innerWidth;
+    if (width < 768) return 1;
+    if (width < 1024) return 2;
+    return 3;
+  }
+
+  function updateCarousel() {
+    const cardWidth = carouselTrack.children[0].offsetWidth + 20; // + gap
+    const translateX = -currentIndex * cardWidth;
+    carouselTrack.style.transform = `translateX(${translateX}px)`;
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % guestImages.length;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + guestImages.length) % guestImages.length;
+    updateCarousel();
+  }
+
+  function startAutoPlay() {
+    autoPlayInterval = setInterval(nextSlide, 4000);
+  }
+
+  function stopAutoPlay() {
+    clearInterval(autoPlayInterval);
+  }
+
+  // Обработчики событий
+  nextBtn.addEventListener('click', () => {
+    nextSlide();
+    stopAutoPlay();
+    startAutoPlay();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    prevSlide();
+    stopAutoPlay();
+    startAutoPlay();
+  });
+
+  // Пауза автовоспроизведения при наведении
+  carouselTrack.addEventListener('mouseenter', stopAutoPlay);
+  carouselTrack.addEventListener('mouseleave', startAutoPlay);
+
+  // Адаптация к изменению размера окна
+  window.addEventListener('resize', () => {
+    cardsPerView = getCardsPerView();
+    updateCarousel();
+  });
+
+  // Запуск автовоспроизведения
+  startAutoPlay();
+  updateCarousel();
+}
