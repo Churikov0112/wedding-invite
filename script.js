@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCarousel();
 });
 
-// Карусель гостей
+// Карусель гостей - ОБНОВЛЕННАЯ ЛОГИКА
 function initCarousel() {
   const carouselTrack = document.getElementById('carousel-track');
   const prevBtn = document.querySelector('.prev-btn');
@@ -94,12 +94,20 @@ function initCarousel() {
   }
 
   function nextSlide() {
-    currentIndex = (currentIndex + 1) % guestImages.length;
+    if (currentIndex < guestImages.length - cardsPerView) {
+      currentIndex++;
+    } else {
+      currentIndex = 0; // Возврат к началу
+    }
     updateCarousel();
   }
 
   function prevSlide() {
-    currentIndex = (currentIndex - 1 + guestImages.length) % guestImages.length;
+    if (currentIndex > 0) {
+      currentIndex--;
+    } else {
+      currentIndex = guestImages.length - cardsPerView; // Переход к концу
+    }
     updateCarousel();
   }
 
