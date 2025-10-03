@@ -1,3 +1,13 @@
+// Использование после инлайнинга:
+function loadGuestImage(guestNumber) {
+    const base64 = window.getAsset(`guest${guestNumber}.jpg`);
+    if (base64) {
+        return base64;
+    }
+    // fallback на обычный путь
+    return `assets/guest${guestNumber}.jpg`;
+}
+
 // Обработка формы свитка
 function initWeddingForm() {
   const form = document.getElementById('wedding-form');

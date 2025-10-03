@@ -1,0 +1,24 @@
+{
+  "name": "wedding-invite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Churikov0112/wedding-invite.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Churikov0112/wedding-invite/issues"
+  },
+  "homepage": "https://github.com/Churikov0112/wedding-invite#readme",
+  "devDependencies": {
+    "inline-source": "^8.0.3"
+  }
+}
