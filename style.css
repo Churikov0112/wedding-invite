@@ -49,15 +49,15 @@ body, html {
 
 .names-plate {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  color: white;
-  font-size: clamp(16px, 3vw, 24px);
-  text-shadow: 0 0 8px rgba(0,0,0,0.8);
-  padding: 8px 16px;
-  background: rgba(0,0,0,0.4);
-  border-radius: 6px;
-  backdrop-filter: blur(3px);
+  top: 20px;
+  left: 20px;
+  /* color: white;
+  font-size: clamp(16px, 3vw, 24px); */
+  /* text-shadow: 0 0 8px rgba(0,0,0,0.8); */
+  /* padding: 8px 16px; */
+  /* background: rgba(0,0,0,0.4); */
+  /* border-radius: 6px; */
+  /* backdrop-filter: blur(3px); */
   z-index: 2;
 }
 
@@ -596,6 +596,189 @@ body, html {
   }
 }
 
+/* Стили для блока с аркой и информацией */
+.couple-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 60vh;
+  gap: 40px;
+}
+
+.couple-arch {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arch-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  display: block;
+}
+
+.info-column {
+  flex: 0 0 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.info-title {
+  font-family: 'beaumarchaisc', serif;
+  font-size: clamp(48px, 4vw, 36px);
+  margin: 0;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.spacer-44 {
+  height: 44px;
+}
+
+.spacer-70 {
+  height: 70px;
+}
+
+.names-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+}
+
+.contact-info {
+  font-family: 'Faberge', serif;
+  font-size: clamp(24px, 3vw, 20px);
+  line-height: 1.6;
+}
+
+.contact-text {
+  margin: 0 0 20px 0;
+}
+
+.contact-links {
+  margin: 0;
+}
+
+.contact-link {
+  text-decoration: underline;
+  color: #5a4a3a;
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #c4a86f;
+}
+
+/* Мобильная версия (по умолчанию) - колонка под аркой */
+.couple-info-container {
+  flex-direction: column;
+}
+
+/* Десктопная версия - только когда все помещается */
+@media (min-width: 1024px) {
+  .couple-info-container {
+    flex-direction: row;
+    gap: 60px;
+  }
+  
+  /* Дополнительная проверка - минимальная ширина для комфортного отображения */
+  @media (min-width: 1100px) {
+    .couple-info-container {
+      gap: 80px;
+    }
+  }
+}
+
+/* Планшетная версия - промежуточные размеры */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .couple-info-container {
+    flex-direction: column;
+    gap: 50px;
+  }
+  
+  .arch-image {
+    max-width: 450px;
+  }
+  
+  .info-column {
+    flex: 0 0 auto;
+    max-width: 500px;
+  }
+}
+
+/* Адаптивность для маленьких экранов */
+@media (max-width: 767px) {
+  .couple-info-container {
+    gap: 30px;
+    padding: 0 10px;
+  }
+  
+  .arch-image {
+    max-width: 100%;
+  }
+  
+  .info-column {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .spacer-44 {
+    height: 30px;
+  }
+  
+  .spacer-70 {
+    height: 50px;
+  }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+  .couple-info-container {
+    gap: 25px;
+  }
+  
+  .spacer-44 {
+    height: 25px;
+  }
+  
+  .spacer-70 {
+    height: 40px;
+  }
+  
+  .names-image {
+    max-width: 250px;
+  }
+}
+
+/* Стили для картинки с именами в видео-секции */
+.names-image-plate {
+  width: auto;
+  height: 100px;
+  display: block;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+  .names-image-plate {
+    height: 100px;
+  }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+  .names-image-plate {
+    height: 100px;
+  }
+}
 
 
 /* Кнопка воспроизведения (для мобильных, если блокировка autoplay) */

@@ -3,13 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Анастасия & Егор</title>
+    <title>Приглашение на свадьбу</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="video-section">
       <div class="video-wrapper">
-        <div class="names-plate">Анастасия & Егор</div>
+        <div class="names-plate">
+          <img
+            src="assets/we_marry.png"
+            alt="Анастасия и Егор"
+            class="names-image-plate"
+          />
+        </div>
         <video id="wedding-video" autoplay muted loop playsinline>
           <source src="assets/forest.mp4" type="video/mp4" />
         </video>
@@ -216,8 +222,8 @@
       </div>
     </div>
 
-    <!-- Блок с фото жениха и невесты в арке -->
-    <div style="position: relative; padding: 0 40px">
+    <!-- Блок с фото жениха и невесты в арке и информацией -->
+    <div style="position: relative; padding: 40px 20px; margin: 80px 0">
       <!-- Угловые цветы слева -->
       <div style="position: absolute; top: 0; left: 0; z-index: 2">
         <img
@@ -244,13 +250,54 @@
         />
       </div>
 
-      <!-- Основная арка с фото -->
-      <div style="position: relative; z-index: 1; margin-top: 60px">
-        <img
-          src="assets/arc_2.png"
-          alt="Жених и невеста"
-          style="width: 90%; max-width: 600px; display: block; margin: 0 auto"
-        />
+      <!-- Контейнер для арки и информации -->
+      <div class="couple-info-container">
+        <!-- Арка с фото -->
+        <div class="couple-arch">
+          <img
+            src="assets/arc_2.png"
+            alt="Жених и невеста"
+            class="arch-image"
+          />
+        </div>
+
+        <!-- Информационная колонка -->
+        <div class="info-column">
+          <!-- Заголовок -->
+          <h1 class="info-title">Очень ждем Вас на нашей свадьбе</h1>
+
+          <!-- Вертикальный отступ 44px -->
+          <div class="spacer-44"></div>
+
+          <!-- Картинка с именами -->
+          <img
+            src="assets/our_names.png"
+            alt="Анастасия и Егор"
+            class="names-image"
+          />
+
+          <!-- Вертикальный отступ 70px -->
+          <div class="spacer-70"></div>
+
+          <!-- Контактная информация -->
+          <div class="contact-info">
+            <p class="contact-text">
+              По всем вопросам можно писать<br />
+              прекрасной фее Элине
+            </p>
+            <p class="contact-links">
+              <a href="tel:+79136243383" class="contact-link"
+                >+7 (913) 624 33-83</a
+              ><br />
+              <a
+                href="https://t.me/acidyouth"
+                target="_blank"
+                class="contact-link"
+                >tg: @acidyouth</a
+              >
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
