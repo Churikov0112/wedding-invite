@@ -583,6 +583,21 @@ body, html {
   }
 }
 
+/* Адаптивность для блока с аркой */
+@media (max-width: 768px) {
+  .flowers-corner {
+    width: 80px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .flowers-corner {
+    width: 60px !important;
+  }
+}
+
+
+
 /* Кнопка воспроизведения (для мобильных, если блокировка autoplay) */
 .play-button {
   position: fixed;
