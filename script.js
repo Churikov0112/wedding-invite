@@ -1,3 +1,23 @@
+// Обработка формы свитка
+function initWeddingForm() {
+  const form = document.getElementById('wedding-form');
+  
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Собираем данные формы
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    
+    // Здесь можно отправить данные на сервер
+    console.log('Данные формы:', data);
+    
+    // Показываем сообщение об успехе
+    alert('Спасибо! Ваш ответ успешно отправлен.');
+    form.reset();
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const video = document.getElementById('wedding-video');
   const transitionBlock = document.querySelector('.transition-block');
@@ -51,6 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Инициализация карусели
   initCarousel();
+
+  // Инициализация формы
+  initWeddingForm();
 });
 
 // Карусель гостей - ОБНОВЛЕННАЯ ЛОГИКА (бесконечная, без автоплея)

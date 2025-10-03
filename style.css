@@ -334,6 +334,255 @@ body, html {
   transform: scale(0.95);
 }
 
+/* Стили для формы-свитка */
+/* Стили для формы-свитка */
+.scroll-form-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 5%; /* Отступы по бокам контейнера */
+}
+
+.scroll-top,
+.scroll-bottom {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.scroll-body {
+  background: transparent;
+  padding: 6% 12%; /* Увеличили отступы в процентах */
+  margin: 0;
+  position: relative;
+  background-image: url('assets/scroll_body.png');
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+  background-position: center top;
+  min-height: 200px;
+}
+
+/* Стили формы */
+.wedding-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-label {
+  font-family: 'Faberge', serif;
+  font-size: 18px;
+  color: #5a4a3a;
+  margin-bottom: 5px;
+}
+
+.form-input,
+.form-textarea {
+  padding: 12px 16px;
+  border: 2px solid #e8d8b6;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  color: #5a4a3a;
+  transition: all 0.3s ease;
+  max-width: calc(100% - 32px);
+  width: 100%; /* Добавляем ширину 100% */
+  box-sizing: border-box; /* Учитываем padding в ширине */
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #c4a86f;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(196, 168, 111, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+  max-width: calc(100% - 32px);
+  width: 100%; /* Добавляем ширину 100% */
+  box-sizing: border-box; /* Учитываем padding в ширине */
+}
+
+/* Стили для радио-кнопок и чекбоксов */
+.radio-group,
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 100%; /* Убираем фиксированные отступы */
+  width: 100%;
+}
+
+.radio-label,
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  color: #5a4a3a;
+  transition: color 0.3s ease;
+  max-width: 100%;
+  width: 100%;
+}
+
+.radio-label:hover,
+.checkbox-label:hover {
+  color: #8b7355;
+}
+
+.radio-label input[type="radio"],
+.checkbox-label input[type="checkbox"] {
+  display: none;
+}
+
+.radio-custom,
+.checkbox-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e8d8b6;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.checkbox-custom {
+  border-radius: 4px;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom {
+  border-color: #c4a86f;
+  background: #c4a86f;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom {
+  border-color: #c4a86f;
+  background: #c4a86f;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom::after {
+  content: '✓';
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Кнопка отправки */
+.submit-btn {
+  padding: 16px 32px;
+  background: #c4a86f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: 'beaumarchaisc', serif;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  max-width: 200px;
+  align-self: center;
+  width: auto; /* Автоматическая ширина по контенту */
+}
+
+.submit-btn:hover {
+  background: #b0985f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(196, 168, 111, 0.3);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+  .scroll-form-container {
+    padding: 0 5%; /* Увеличили отступы контейнера */
+  }
+  
+  .scroll-body {
+    padding: 8% 15%; /* Увеличили горизонтальные отступы до 15% */
+  }
+  
+  .form-label {
+    font-size: 16px;
+  }
+  
+  .form-input,
+  .form-textarea {
+    font-size: 14px;
+    padding: 10px 12px;
+    max-width: 100%;
+  }
+  
+  .submit-btn {
+    font-size: 18px;
+    padding: 14px 24px;
+    max-width: 180px;
+  }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+  .scroll-form-container {
+    padding: 0 4%;
+  }
+  
+  .scroll-body {
+    padding: 10% 12%; /* Сохраняем достаточные горизонтальные отступы */
+  }
+  
+  .form-input,
+  .form-textarea {
+    padding: 8px 10px;
+  }
+}
+
+/* Для средних мобильных устройств */
+@media (max-width: 375px) {
+  .scroll-body {
+    padding: 12% 10%; /* Еще больше вертикальных отступов на самых маленьких */
+  }
+}
+
+/* Для больших экранов */
+@media (min-width: 1200px) {
+  .scroll-form-container {
+    max-width: 900px; /* Увеличиваем максимальную ширину на больших экранах */
+  }
+  
+  .scroll-body {
+    padding: 5% 15%; /* Меньше вертикальных отступов, больше горизонтальных */
+  }
+}
+
 /* Кнопка воспроизведения (для мобильных, если блокировка autoplay) */
 .play-button {
   position: fixed;
