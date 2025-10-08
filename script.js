@@ -28,6 +28,28 @@ function initWeddingForm() {
   });
 }
 
+// Функция для прокрутки карусели на десктопе
+function initCarouselDesktop() {
+  const scrollContainer = document.getElementById('carousel-scroll');
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
+  
+  if (!scrollContainer || !prevBtn || !nextBtn) return;
+  
+  function scrollCarousel(direction) {
+    const cardWidth = 320 + 20; // ширина карточки + gap
+    const scrollAmount = cardWidth * direction;
+    
+    scrollContainer.scrollBy({
+      left: scrollAmount,
+      behavior: 'smooth'
+    });
+  }
+  
+  prevBtn.addEventListener('click', () => scrollCarousel(-1));
+  nextBtn.addEventListener('click', () => scrollCarousel(1));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const video = document.getElementById('wedding-video');
   const transitionBlock = document.querySelector('.transition-block');
@@ -79,115 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
     video.play().catch(() => {});
   }, { once: true });
 
-  // Инициализация карусели
-  initCarousel();
-
   // Инициализация формы
   initWeddingForm();
+  
+  // Инициализация карусели для десктопа
+  if (window.innerWidth >= 769) {
+    initCarouselDesktop();
+  }
 });
-
-// Карусель гостей - ОБНОВЛЕННАЯ ЛОГИКА (бесконечная, без автоплея)
-function initCarousel() {
-  const carouselTrack = document.getElementById('carousel-track');
-  const prevBtn = document.querySelector('.prev-btn');
-  const nextBtn = document.querySelector('.next-btn');
-  
-  const guestImages = [
-    'assets/guest1.jpg',
-    'assets/guest2.jpg',
-    'assets/guest3.jpg',
-    'assets/guest4.jpg',
-    'assets/guest5.jpg',
-    'assets/guest6.jpg'
-  ];
-
-  let currentIndex = 0;
-  let isAnimating = false;
-
-  // Создаем карточки + добавляем клоны для бесконечности
-  function createCarouselCards() {
-    carouselTrack.innerHTML = '';
-    
-    // Добавляем клон последней карточки в начало
-    const lastCardClone = document.createElement('div');
-    lastCardClone.className = 'carousel-card';
-    lastCardClone.innerHTML = `<img src="${guestImages[guestImages.length - 1]}" alt="Гость ${guestImages.length}" loading="lazy">`;
-    carouselTrack.appendChild(lastCardClone);
-
-    // Добавляем основные карточки
-    guestImages.forEach((imageSrc, index) => {
-      const card = document.createElement('div');
-      card.className = 'carousel-card';
-      card.innerHTML = `<img src="${imageSrc}" alt="Гость ${index + 1}" loading="lazy">`;
-      carouselTrack.appendChild(card);
-    });
-
-    // Добавляем клон первой карточки в конец
-    const firstCardClone = document.createElement('div');
-    firstCardClone.className = 'carousel-card';
-    firstCardClone.innerHTML = `<img src="${guestImages[0]}" alt="Гость 1" loading="lazy">`;
-    carouselTrack.appendChild(firstCardClone);
-  }
-
-  function updateCarousel() {
-    if (isAnimating) return;
-    
-    isAnimating = true;
-    const cardWidth = carouselTrack.children[0].offsetWidth + 20; // + gap
-    const translateX = -currentIndex * cardWidth;
-    
-    carouselTrack.style.transition = 'transform 0.5s ease-in-out';
-    carouselTrack.style.transform = `translateX(${translateX}px)`;
-    
-    setTimeout(() => {
-      isAnimating = false;
-      
-      // Бесконечная прокрутка - перескакиваем на клон без анимации
-      if (currentIndex === guestImages.length + 1) {
-        currentIndex = 1;
-        carouselTrack.style.transition = 'none';
-        carouselTrack.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
-      }
-      
-      if (currentIndex === 0) {
-        currentIndex = guestImages.length;
-        carouselTrack.style.transition = 'none';
-        carouselTrack.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
-      }
-    }, 500);
-  }
-
-  function nextSlide() {
-    currentIndex++;
-    updateCarousel();
-  }
-
-  function prevSlide() {
-    currentIndex--;
-    updateCarousel();
-  }
-
-  // Инициализация карусели
-  createCarouselCards();
-  
-  // Устанавливаем начальную позицию (первая настоящая карточка)
-  currentIndex = 1;
-  const cardWidth = carouselTrack.children[0].offsetWidth + 20;
-  carouselTrack.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
-
-  // Обработчики событий
-  nextBtn.addEventListener('click', () => {
-    if (!isAnimating) nextSlide();
-  });
-
-  prevBtn.addEventListener('click', () => {
-    if (!isAnimating) prevSlide();
-  });
-
-  // Адаптация к изменению размера окна
-  window.addEventListener('resize', () => {
-    const cardWidth = carouselTrack.children[0].offsetWidth + 20;
-    carouselTrack.style.transition = 'none';
-    carouselTrack.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
-  });
-}

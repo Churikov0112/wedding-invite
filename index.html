@@ -35,189 +35,202 @@
       <img src="assets/flowers_divider.png" alt="Transition" />
     </div>
     <div class="content-section">
-      <div class="content-wrapper">
-        <h2 style="font-family: 'beaumarchaisc'; text-align: center">
-          Что вас ждет
-        </h2>
-        <div style="height: 40px"></div>
-        <img
-          src="assets/event_map.png"
-          alt="Event map"
+      <h2 style="font-family: 'beaumarchaisc'; text-align: center">
+        Что вас ждет
+      </h2>
+      <div style="height: 40px"></div>
+      <img
+        src="assets/event_map.png"
+        alt="Event map"
+        style="
+          width: 100%;
+          max-width: 100%;
+          padding: 0 10px;
+          box-sizing: border-box;
+        "
+      />
+
+      <!-- Добавленный текст -->
+      <div style="margin-top: 60px; text-align: center; padding: 0 20px">
+        <p
           style="
-            width: 100%;
-            max-width: 100%;
-            padding: 0 10px;
-            box-sizing: border-box;
+            font-family: 'Faberge';
+            font-size: clamp(20px, 4vw, 28px);
+            line-height: 1.4;
+            margin-bottom: 20px;
           "
-        />
+        >
+          И чтобы сделать праздник<br />
+          действительно волшебным,<br />
+          мы просим вас...
+        </p>
+        <p
+          style="
+            font-family: 'beaumarchaisc';
+            font-size: clamp(24px, 6vw, 48px);
+            line-height: 1.2;
+            margin: 0;
+          "
+        >
+          Перевоплотиться!
+        </p>
+      </div>
 
-        <!-- Добавленный текст -->
-        <div style="margin-top: 60px; text-align: center; padding: 0 20px">
-          <p
-            style="
-              font-family: 'Faberge';
-              font-size: clamp(20px, 4vw, 28px);
-              line-height: 1.4;
-              margin-bottom: 20px;
-            "
-          >
-            И чтобы сделать праздник<br />
-            действительно волшебным,<br />
-            мы просим вас...
-          </p>
-          <p
-            style="
-              font-family: 'beaumarchaisc';
-              font-size: clamp(24px, 6vw, 48px);
-              line-height: 1.2;
-              margin: 0;
-            "
-          >
-            Перевоплотиться!
-          </p>
-        </div>
-
-        <!-- Карусель с фото гостей -->
-        <div class="guests-section">
-          <div class="carousel-container">
-            <div class="carousel-track" id="carousel-track">
-              <!-- Карточки будут добавлены через JavaScript -->
+      <!-- Карусель с фото гостей - ОБНОВЛЕННАЯ CSS ВЕРСИЯ -->
+      <div class="guests-section">
+        <div class="carousel-container">
+          <div class="carousel-scroll" id="carousel-scroll">
+            <div class="carousel-card">
+              <img src="assets/guest1.jpg" alt="Гость 1" loading="lazy" />
             </div>
-            <div class="carousel-controls">
-              <button
-                class="carousel-btn prev-btn"
-                aria-label="Предыдущее фото"
-              >
-                ⟵
-              </button>
-              <button class="carousel-btn next-btn" aria-label="Следующее фото">
-                ⟶
-              </button>
+            <div class="carousel-card">
+              <img src="assets/guest2.jpg" alt="Гость 2" loading="lazy" />
+            </div>
+            <div class="carousel-card">
+              <img src="assets/guest3.jpg" alt="Гость 3" loading="lazy" />
+            </div>
+            <div class="carousel-card">
+              <img src="assets/guest4.jpg" alt="Гость 4" loading="lazy" />
+            </div>
+            <div class="carousel-card">
+              <img src="assets/guest5.jpg" alt="Гость 5" loading="lazy" />
+            </div>
+            <div class="carousel-card">
+              <img src="assets/guest6.jpg" alt="Гость 6" loading="lazy" />
             </div>
           </div>
-        </div>
 
-        <!-- Добавленный текст про магический свиток -->
-        <div style="margin-top: 60px; text-align: center; padding: 0 20px">
-          <p
-            style="
-              font-family: 'Faberge';
-              font-size: clamp(20px, 4vw, 28px);
-              line-height: 1.4;
-              margin: 0;
-            "
-          >
-            Мы ждем вашего ответа через этот магический свиток
-          </p>
-        </div>
-
-        <!-- Блок со свитком и кастомной формой -->
-        <div style="margin-top: 40px; display: flex; justify-content: center">
-          <div class="scroll-form-container">
-            <!-- Верхняя часть свитка -->
-            <img
-              src="assets/scroll_top.png"
-              alt="Верх свитка"
-              class="scroll-top"
-            />
-
-            <!-- Тело свитка с формой -->
-            <div class="scroll-body">
-              <form id="wedding-form" class="wedding-form">
-                <!-- Поле имени -->
-                <div class="form-group">
-                  <label for="guest-name" class="form-label"
-                    >Силы магии, внемлите моим словам! Моё имя в этом
-                    мире:</label
-                  >
-                  <input
-                    type="text"
-                    id="guest-name"
-                    name="guest-name"
-                    class="form-input"
-                    placeholder="Имя и фамилия"
-                    required
-                  />
-                </div>
-
-                <!-- Радио-кнопки -->
-                <div class="form-group">
-                  <label class="form-label">Вы придете на праздник?</label>
-                  <div class="radio-group">
-                    <label class="radio-label">
-                      <input
-                        type="radio"
-                        name="attendance"
-                        value="yes"
-                        required
-                      />
-                      <span class="radio-custom"></span>
-                      Да, с радостью!
-                    </label>
-                    <label class="radio-label">
-                      <input type="radio" name="attendance" value="no" />
-                      <span class="radio-custom"></span>
-                      К сожалению, не смогу
-                    </label>
-                  </div>
-                </div>
-
-                <!-- Чекбоксы -->
-                <div class="form-group">
-                  <label class="form-label"
-                    >Что вы предпочитаете из напитков?</label
-                  >
-                  <div class="checkbox-group">
-                    <label class="checkbox-label">
-                      <input type="checkbox" name="drinks" value="wine" />
-                      <span class="checkbox-custom"></span>
-                      Вино
-                    </label>
-                    <label class="checkbox-label">
-                      <input type="checkbox" name="drinks" value="champagne" />
-                      <span class="checkbox-custom"></span>
-                      Шампанское
-                    </label>
-                    <label class="checkbox-label">
-                      <input type="checkbox" name="drinks" value="juice" />
-                      <span class="checkbox-custom"></span>
-                      Соки
-                    </label>
-                    <label class="checkbox-label">
-                      <input type="checkbox" name="drinks" value="water" />
-                      <span class="checkbox-custom"></span>
-                      Вода
-                    </label>
-                  </div>
-                </div>
-
-                <!-- Текстовое поле -->
-                <div class="form-group">
-                  <label for="guest-message" class="form-label"
-                    >Ваши пожелания и музыкальные предпочтения:</label
-                  >
-                  <textarea
-                    id="guest-message"
-                    name="guest-message"
-                    class="form-textarea"
-                    rows="4"
-                  ></textarea>
-                </div>
-
-                <!-- Кнопка отправки -->
-                <button type="submit" class="submit-btn">
-                  Скрепить магией и отправить
-                </button>
-              </form>
-            </div>
-
-            <!-- Нижняя часть свитка -->
-            <img
-              src="assets/scroll_bottom.png"
-              alt="Низ свитка"
-              class="scroll-bottom"
-            />
+          <!-- Кнопки управления (только для десктопа) -->
+          <div class="carousel-controls">
+            <button class="carousel-btn prev-btn" aria-label="Предыдущее фото">
+              ⟵
+            </button>
+            <button class="carousel-btn next-btn" aria-label="Следующее фото">
+              ⟶
+            </button>
           </div>
+        </div>
+      </div>
+
+      <!-- Добавленный текст про магический свиток -->
+      <div style="margin-top: 60px; text-align: center; padding: 0 20px">
+        <p
+          style="
+            font-family: 'Faberge';
+            font-size: clamp(20px, 4vw, 28px);
+            line-height: 1.4;
+            margin: 0;
+          "
+        >
+          Мы ждем вашего ответа через этот магический свиток
+        </p>
+      </div>
+
+      <!-- Блок со свитком и кастомной формой -->
+      <div style="margin-top: 40px; display: flex; justify-content: center">
+        <div class="scroll-form-container">
+          <!-- Верхняя часть свитка -->
+          <img
+            src="assets/scroll_top.png"
+            alt="Верх свитка"
+            class="scroll-top"
+          />
+
+          <!-- Тело свитка с формой -->
+          <div class="scroll-body">
+            <form id="wedding-form" class="wedding-form">
+              <!-- Поле имени -->
+              <div class="form-group">
+                <label for="guest-name" class="form-label"
+                  >Силы магии, внемлите моим словам! Моё имя в этом мире:</label
+                >
+                <input
+                  type="text"
+                  id="guest-name"
+                  name="guest-name"
+                  class="form-input"
+                  placeholder="Имя и фамилия"
+                  required
+                />
+              </div>
+
+              <!-- Радио-кнопки -->
+              <div class="form-group">
+                <label class="form-label">Вы придете на праздник?</label>
+                <div class="radio-group">
+                  <label class="radio-label">
+                    <input
+                      type="radio"
+                      name="attendance"
+                      value="yes"
+                      required
+                    />
+                    <span class="radio-custom"></span>
+                    Да, с радостью!
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="attendance" value="no" />
+                    <span class="radio-custom"></span>
+                    К сожалению, не смогу
+                  </label>
+                </div>
+              </div>
+
+              <!-- Чекбоксы -->
+              <div class="form-group">
+                <label class="form-label"
+                  >Что вы предпочитаете из напитков?</label
+                >
+                <div class="checkbox-group">
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="drinks" value="wine" />
+                    <span class="checkbox-custom"></span>
+                    Вино
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="drinks" value="champagne" />
+                    <span class="checkbox-custom"></span>
+                    Шампанское
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="drinks" value="juice" />
+                    <span class="checkbox-custom"></span>
+                    Соки
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="drinks" value="water" />
+                    <span class="checkbox-custom"></span>
+                    Вода
+                  </label>
+                </div>
+              </div>
+
+              <!-- Текстовое поле -->
+              <div class="form-group">
+                <label for="guest-message" class="form-label"
+                  >Ваши пожелания и музыкальные предпочтения:</label
+                >
+                <textarea
+                  id="guest-message"
+                  name="guest-message"
+                  class="form-textarea"
+                  rows="4"
+                ></textarea>
+              </div>
+
+              <!-- Кнопка отправки -->
+              <button type="submit" class="submit-btn">
+                Скрепить магией и отправить
+              </button>
+            </form>
+          </div>
+
+          <!-- Нижняя часть свитка -->
+          <img
+            src="assets/scroll_bottom.png"
+            alt="Низ свитка"
+            class="scroll-bottom"
+          />
         </div>
       </div>
     </div>
