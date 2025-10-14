@@ -772,22 +772,24 @@ body, html {
 
 /* Стили для картинки с именами в видео-секции */
 .names-image-plate {
-  width: auto;
-  height: 100px;
+  height: auto;
+  width: 50%;
   display: block;
 }
 
 /* Адаптивность для мобильных */
 @media (max-width: 768px) {
   .names-image-plate {
-    height: 100px;
+   height: auto;
+  width: 70%;
   }
 }
 
 /* Для очень маленьких экранов */
 @media (max-width: 480px) {
   .names-image-plate {
-    height: 100px;
+    height: auto;
+  width: 70%;
   }
 }
 
