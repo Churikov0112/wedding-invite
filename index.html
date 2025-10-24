@@ -56,6 +56,8 @@
       </div>
     </div>
 
+    <div style="height: 40px"></div>
+
     <!-- <div style="height: 40px"></div> -->
     <div class="content-section">
       <p
@@ -64,12 +66,10 @@
           text-align: center;
           font-size: clamp(32px, 10vw, 64px);
           line-height: 1.2;
-          margin: 0;
         "
       >
         Карта приключений
       </p>
-      <div style="height: 40px"></div>
       <img
         src="assets/event_map.jpg"
         alt="Event map"
@@ -178,7 +178,7 @@
       </div>
 
       <!-- Блок со свитком и кастомной формой -->
-      <div style="margin-top: 40px; display: flex; justify-content: center">
+      <div style="margin-top: 20px; display: flex; justify-content: center">
         <div class="scroll-form-container">
           <!-- Верхняя часть свитка -->
           <img
@@ -193,7 +193,7 @@
               <!-- Поле имени -->
               <div class="form-group">
                 <label for="guest-name" class="form-label"
-                  >Силы магии, внемлите моим словам! Моё имя в этом мире:</label
+                  >О дорогие друзья! За приглашение вас благодарю я, ...</label
                 >
                 <input
                   type="text"
@@ -207,61 +207,51 @@
 
               <!-- Радио-кнопки -->
               <div class="form-group">
-                <label class="form-label">Вы придете на праздник?</label>
+                <label class="form-label">Спешу вам сообщить, что я...</label>
                 <div class="radio-group">
                   <label class="radio-label">
                     <input type="radio" name="attendance" value="yes" />
                     <span class="radio-custom"></span>
-                    Да, с радостью!
+                    С удовольствием разделю с вами этот день!
                   </label>
                   <label class="radio-label">
                     <input type="radio" name="attendance" value="no" />
                     <span class="radio-custom"></span>
-                    К сожалению, не смогу
+                    К сожалению, не смогу присутствовать на этом торжестве.
                   </label>
                   <label class="radio-label">
                     <input type="radio" name="attendance" value="maybe" />
                     <span class="radio-custom"></span>
-                    Пока не знаю
+                    Пока не знаю, получится ли посетить ваше празднество. Моё
+                    будущее туманно...
                   </label>
                 </div>
               </div>
 
               <!-- Чекбоксы -->
               <div class="form-group">
-                <label class="form-label"
-                  >Что вы предпочитаете из напитков?</label
-                >
+                <label class="form-label">Пусть по усам моим течёт...</label>
                 <div class="checkbox-group">
-                  <label class="checkbox-label">
-                    <input type="checkbox" name="drinks" value="wine" />
-                    <span class="checkbox-custom"></span>
-                    Вино Алто
-                  </label>
                   <label class="checkbox-label">
                     <input type="checkbox" name="drinks" value="mead" />
                     <span class="checkbox-custom"></span>
-                    Нордский мёд
+                    Славный нордский мёд (медовуха, пиво, сидр)
                   </label>
                   <label class="checkbox-label">
                     <input type="checkbox" name="drinks" value="vodka" />
                     <span class="checkbox-custom"></span>
-                    Краснолюдский спирт
+                    Краснолюдский спирт (водка, самогон и прочее крепкое)
                   </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="drinks" value="wine" />
+                    <span class="checkbox-custom"></span>
+                    Туссентское красное и боклерское белое (вино и шампанское)
+                  </label>
+
                   <label class="checkbox-label">
                     <input type="checkbox" name="drinks" value="juice" />
                     <span class="checkbox-custom"></span>
-                    Нектар (сок)
-                  </label>
-                  <label class="checkbox-label">
-                    <input type="checkbox" name="drinks" value="water" />
-                    <span class="checkbox-custom"></span>
-                    Вода
-                  </label>
-                  <label class="checkbox-label">
-                    <input type="checkbox" name="drinks" value="mors" />
-                    <span class="checkbox-custom"></span>
-                    Зелье лечения (морс)
+                    Морс из северных ягод (сок и морс)
                   </label>
                 </div>
               </div>
@@ -269,20 +259,21 @@
               <!-- Текстовое поле -->
               <div class="form-group">
                 <label for="guest-message" class="form-label"
-                  >Если у вас есть аллергии или пищевые ограничения, напишите
-                  их</label
+                  >Прошу проследить, чтобы в пище моей не оказалось следующих
+                  продуктов, ибо тело моё отвергает их:</label
                 >
                 <textarea
                   id="guest-message"
                   name="guest-message"
                   class="form-textarea"
+                  placeholder="Пищевые аллергии"
                   rows="4"
                 ></textarea>
               </div>
 
               <!-- Кнопка отправки -->
               <button type="submit" class="submit-btn">
-                Скрепить магией и отправить
+                Отправить магический свиток
               </button>
             </form>
           </div>
@@ -298,9 +289,9 @@
     </div>
 
     <!-- Блок с фото жениха и невесты в арке и информацией -->
-    <div style="position: relative; padding: 40px 20px; margin: 80px 0">
+    <div style="position: relative; padding: 40px 20px; margin: 40px 0">
       <!-- Угловые цветы слева -->
-      <div style="position: absolute; top: 0; left: 0; z-index: 2">
+      <div style="position: absolute; top: 0; left: 20px; z-index: 2">
         <img
           src="assets/flowers_corner.png"
           alt="Цветы"
@@ -313,7 +304,7 @@
         style="
           position: absolute;
           top: 0;
-          right: 0;
+          right: 20px;
           z-index: 2;
           transform: scaleX(-1);
         "
