@@ -1,3 +1,10 @@
+.default-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 @font-face {
   font-family: 'beaumarchaisc';
   src: url('fonts/beaumarchaisc.ttf') format('truetype');
@@ -83,7 +90,7 @@ body, html {
   z-index: 1;
 }
 
-/* Градиент поверх forest.png */
+/* Градиент поверх forest.jpg */
 .gradient-overlay {
   position: absolute;
   top: 0;
@@ -95,7 +102,7 @@ body, html {
   z-index: 2;
 }
 
-/* Дополнительные картинки поверх forest.png */
+/* Дополнительные картинки поверх forest.jpg */
 .image-wrapper::before {
   content: '';
   position: absolute;

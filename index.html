@@ -16,24 +16,46 @@
             class="names-image-plate"
           />
         </div>
-        <video id="wedding-video" autoplay muted loop playsinline>
+
+        <!-- Картинка по умолчанию для всех -->
+        <img
+          id="default-image"
+          src="assets/forest_with_us.jpg"
+          alt="Forest with couple"
+          class="default-media"
+        />
+
+        <!-- Видео будет показано только для не-iOS устройств -->
+        <video
+          id="wedding-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          style="display: none"
+        >
           <source src="assets/forest.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
+
     <div class="image-section">
       <div class="image-wrapper">
+        <!-- Для всех используем forest_with_us.jpg -->
         <img
           id="under-video-image"
-          src="assets/forest.png"
+          src="assets/forest_with_us.jpg"
           alt="Forest background"
         />
         <div class="gradient-overlay"></div>
       </div>
     </div>
+
+    <!-- остальной код без изменений -->
     <div class="transition-block">
       <img src="assets/flowers_divider.png" alt="Transition" />
     </div>
+
     <div style="height: 40px"></div>
     <div class="content-section">
       <div style="height: 40px"></div>
