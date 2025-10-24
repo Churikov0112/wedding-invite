@@ -184,15 +184,17 @@ body, html {
 
 /* Переходный блок с картинкой */
 .transition-block {
+  margin-left: 2.5%;
+  margin-right: 2.5%;
   position: absolute;
   left: 0;
   transform: translateY(-50%);
-  width: 100%;
+  width: 95%;
   z-index: 999;
 }
 
 .transition-block img {
-  width: 100%;
+  width: 95%;
   height: auto;
   display: block;
 }
