@@ -188,7 +188,7 @@ body, html {
   left: 0;
   transform: translateY(-50%);
   width: 100%;
-  z-index: 300;
+  z-index: 999;
 }
 
 .transition-block img {
