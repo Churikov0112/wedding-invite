@@ -154,11 +154,16 @@ body, html {
     left: 0;
     width: 100%;
     background-image: url('assets/arc_and_data_mobile.png');
-    background-position: center;
+    background-position: center center; /* или center center */
+    background-size: cover; /* Заполняет всю ширину, может обрезать сверху/снизу */
+    background-repeat: no-repeat;
+    height: 100%;
+    top: 70px;
   }
 
   .image-wrapper::after {
     content: '';
+    display: none;
   }
 }
 
@@ -172,9 +177,11 @@ body, html {
 
 /* Portrait — квадрат */
 @media (orientation: portrait) {
-  .video-wrapper,
-  .image-wrapper {
+  .video-wrapper {
     aspect-ratio: 1 / 1;
+  }
+  .image-wrapper {
+    aspect-ratio: 3 / 5;
   }
   #wedding-video,
   #under-video-image {
