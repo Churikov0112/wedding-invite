@@ -382,8 +382,8 @@ body, html {
   padding: 2% 20%;
   position: relative;
   background-image: url('assets/scroll_body.png');
-  background-repeat: repeat-y;
-  background-size: 100% auto;
+  background-repeat: no-repeat; /* Изменено с repeat-y на no-repeat */
+  background-size: 100% 100%; /* Растягиваем по ширине и высоте */
   background-position: center top;
   min-height: 200px;
 }
