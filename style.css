@@ -283,8 +283,8 @@ body, html {
 /* Размеры карточек для мобильных */
 @media (max-width: 768px) {
   .carousel-card {
-    width: 200px;
-    height: 350px;
+    width: 60%;
+    height: auto;
   }
   
   /* Отступы для первой и последней карточки */
@@ -394,6 +394,8 @@ body, html {
   flex-direction: column;
   padding: 2% 10%;
   gap: 25px;
+  text-align: left;
+  align-items: flex-start;
 }
 
 .form-group {

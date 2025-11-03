@@ -32,7 +32,7 @@ function showVideoForNonIOS() {
       }
       
       console.log('✅ Показано видео для не-iOS устройства');
-      return video; // Возвращаем видео элемент
+      return video;
     }
   } else {
     console.log('📱 iOS устройство, оставляем картинку');
@@ -40,28 +40,147 @@ function showVideoForNonIOS() {
   return null;
 }
 
-// Использование после инлайнинга:
-function loadGuestImage(guestNumber) {
-    const base64 = window.getAsset(`guest${guestNumber}.jpg`);
-    if (base64) {
-        return base64;
+// Функция отправки данных в Telegram через Bot API
+async function sendToTelegram(formData) {
+  try {
+    const BOT_TOKEN = '8442114962:AAE48KhPhyhjcLLHpGU9uzmosNFmgrbYR6k';
+    const CHAT_ID = '1805490923';
+
+    // Получаем исходные ключи напитков из формы (mead, vodka, wine, juice)
+    const formDataObj = new FormData(document.getElementById('wedding-form'));
+    const selectedDrinkKeys = formDataObj.getAll('drinks'); // Это вернет ['mead', 'vodka'] и т.д.
+
+    // Структурируем напитки в объект на основе выбранных ключей
+    const drinksData = {
+      mead: selectedDrinkKeys.includes('mead'),
+      vodka: selectedDrinkKeys.includes('vodka'),
+      wine: selectedDrinkKeys.includes('wine'),
+      juice: selectedDrinkKeys.includes('juice')
+    };
+
+    // Создаем JSON-like структуру
+    const responseData = {
+      name: formData.name,
+      attendance: formData.attendance,
+      drinks: drinksData,
+      allergies: formData.allergies,
+      timestamp: new Date().toISOString()
+    };
+
+    // Форматируем сообщение в читаемом JSON виде
+    const message = `New response!
+
+${JSON.stringify(responseData, null, 2)}`;
+
+    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: message
+      })
+    });
+
+    const result = await response.json();
+    
+    if (!response.ok) {
+      console.error('Telegram API error:', result);
+      throw new Error(`Ошибка Telegram: ${result.description || 'Unknown error'}`);
     }
-    return `assets/guest${guestNumber}.jpg`;
+
+    console.log('✅ Данные отправлены в JSON формате');
+    console.log('Выбранные напитки:', drinksData);
+    return true;
+  } catch (error) {
+    console.error('Ошибка отправки в Telegram:', error);
+    return false;
+  }
 }
+
+const drinksMap = {
+      'mead': 'Медовуха/пиво/сидр',
+      'vodka': 'Водка/крепкое', 
+      'wine': 'Вино/шампанское',
+      'juice': 'Сок/морс'
+};
 
 // Обработка формы свитка
 function initWeddingForm() {
   const form = document.getElementById('wedding-form');
   
-  form.addEventListener('submit', function(e) {
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
     
+    // Собираем данные формы
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+    const name = formData.get('guest-name') || 'Не указано';
+    const attendance = formData.get('attendance');
+    const allergies = formData.get('guest-message') || 'Нет';
     
-    console.log('Данные формы:', data);
-    alert('Спасибо! Ваш ответ успешно отправлен.');
-    form.reset();
+    // Получаем выбранные напитки
+    const selectedDrinks = formData.getAll('drinks');
+    
+    const drinks = selectedDrinks.map(drink => drinksMap[drink] || drink);
+    
+    // Текст для присутствия
+    let attendanceText = '';
+    switch (attendance) {
+      case 'yes':
+        attendanceText = '✅ Приду';
+        break;
+      case 'no':
+        attendanceText = '❌ Не приду';
+        break;
+      case 'maybe':
+        attendanceText = '❓ Пока не знаю';
+        break;
+      default:
+        attendanceText = 'Не указано';
+    }
+    
+    // Подготавливаем данные для отправки
+    const dataToSend = {
+      name,
+      attendance,
+      attendanceText,
+      drinks,
+      allergies,
+      timestamp: new Date().toISOString()
+    };
+    
+    console.log('Данные формы:', dataToSend);
+    
+    // Показываем загрузку
+    const submitBtn = form.querySelector('.submit-btn');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Отправляем...';
+    submitBtn.disabled = true;
+    
+    try {
+      // Отправляем в Telegram
+      const success = await sendToTelegram(dataToSend);
+      
+      if (success) {
+        alert('✨ Волшебно! Мы получили Ваш ответ! ✨');
+        form.reset();
+        
+        // Закрываем веб-приложение если открыто в Telegram
+        if (window.TelegramWebViewProxy) {
+          window.TelegramWebViewProxy.postEvent('web_app_close');
+        }
+      } else {
+        throw new Error('Не удалось отправить ответ');
+      }
+    } catch (error) {
+      console.error('Ошибка:', error);
+      alert('❌ Магия не сработала. Пожалуйста, ответьте нам через Telegram');
+    } finally {
+      // Восстанавливаем кнопку
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
   });
 }
 
