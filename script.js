@@ -40,70 +40,58 @@ function showVideoForNonIOS() {
   return null;
 }
 
-// Функция отправки данных в Telegram через Bot API
-async function sendToTelegram(formData) {
+// Функция отправки данных в Google Таблицы
+async function saveToGoogleSheets(formData) {
   try {
-    const BOT_TOKEN = '8442114962:AAE48KhPhyhjcLLHpGU9uzmosNFmgrbYR6k';
-    const CHAT_ID = '1805490923';
-
-    // Получаем исходные ключи напитков из формы (mead, vodka, wine, juice)
+    // URL вашего Google Apps Script веб-приложения
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwEf8E9xsHZzzxjKLVnZjPdDjYL8qRk2y5IyjUtogTrHVrPcPgfKUoeuaGB8TiREdH87w/exec';
+    
+    // Получаем исходные ключи напитков из формы
     const formDataObj = new FormData(document.getElementById('wedding-form'));
-    const selectedDrinkKeys = formDataObj.getAll('drinks'); // Это вернет ['mead', 'vodka'] и т.д.
+    const selectedDrinkKeys = formDataObj.getAll('drinks');
 
-    // Структурируем напитки в объект на основе выбранных ключей
-    const drinksData = {
-      mead: selectedDrinkKeys.includes('mead'),
-      vodka: selectedDrinkKeys.includes('vodka'),
-      wine: selectedDrinkKeys.includes('wine'),
-      juice: selectedDrinkKeys.includes('juice')
-    };
-
-    // Создаем JSON-like структуру
-    const responseData = {
+    // Подготавливаем данные для отправки согласно структуре вашей таблицы
+    const dataToSend = {
       name: formData.name,
-      attendance: formData.attendance,
-      drinks: drinksData,
+      status: formData.attendanceText,
+      mead: selectedDrinkKeys.includes('mead') ? 'Да' : 'Нет',
+      vodka: selectedDrinkKeys.includes('vodka') ? 'Да' : 'Нет',
+      wine: selectedDrinkKeys.includes('wine') ? 'Да' : 'Нет',
+      mors: selectedDrinkKeys.includes('juice') ? 'Да' : 'Нет',
       allergies: formData.allergies,
       timestamp: new Date().toISOString()
     };
 
-    // Форматируем сообщение в читаемом JSON виде
-    const message = `New response!
+    console.log('📤 Отправляем данные в Google Sheets:', dataToSend);
 
-${JSON.stringify(responseData, null, 2)}`;
-
-    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: message
-      })
+      body: new URLSearchParams(dataToSend).toString()
     });
 
-    const result = await response.json();
+    const result = await response.text();
     
     if (!response.ok) {
-      console.error('Telegram API error:', result);
-      throw new Error(`Ошибка Telegram: ${result.description || 'Unknown error'}`);
+      console.error('Google Sheets API error:', result);
+      throw new Error(`Ошибка Google Sheets: ${result}`);
     }
 
-    console.log('✅ Данные отправлены в JSON формате');
-    console.log('Выбранные напитки:', drinksData);
+    console.log('✅ Данные успешно сохранены в Google Таблицу');
     return true;
   } catch (error) {
-    console.error('Ошибка отправки в Telegram:', error);
+    console.error('Ошибка отправки в Google Sheets:', error);
     return false;
   }
 }
 
 const drinksMap = {
-      'mead': 'Медовуха/пиво/сидр',
-      'vodka': 'Водка/крепкое', 
-      'wine': 'Вино/шампанское',
-      'juice': 'Сок/морс'
+  'mead': 'Медовуха/пиво/сидр',
+  'vodka': 'Водка/крепкое', 
+  'wine': 'Вино/шампанское',
+  'juice': 'Сок/морс'
 };
 
 // Обработка формы свитка
@@ -117,24 +105,19 @@ function initWeddingForm() {
     const formData = new FormData(form);
     const name = formData.get('guest-name') || 'Не указано';
     const attendance = formData.get('attendance');
-    const allergies = formData.get('guest-message') || 'Нет';
-    
-    // Получаем выбранные напитки
-    const selectedDrinks = formData.getAll('drinks');
-    
-    const drinks = selectedDrinks.map(drink => drinksMap[drink] || drink);
+    const allergies = formData.get('guest-message') || 'Нет аллергий';
     
     // Текст для присутствия
     let attendanceText = '';
     switch (attendance) {
       case 'yes':
-        attendanceText = '✅ Приду';
+        attendanceText = 'Приду';
         break;
       case 'no':
-        attendanceText = '❌ Не приду';
+        attendanceText = 'Не приду';
         break;
       case 'maybe':
-        attendanceText = '❓ Пока не знаю';
+        attendanceText = 'Пока не знаю';
         break;
       default:
         attendanceText = 'Не указано';
@@ -143,11 +126,8 @@ function initWeddingForm() {
     // Подготавливаем данные для отправки
     const dataToSend = {
       name,
-      attendance,
       attendanceText,
-      drinks,
-      allergies,
-      timestamp: new Date().toISOString()
+      allergies
     };
     
     console.log('Данные формы:', dataToSend);
@@ -159,23 +139,18 @@ function initWeddingForm() {
     submitBtn.disabled = true;
     
     try {
-      // Отправляем в Telegram
-      const success = await sendToTelegram(dataToSend);
+      // Отправляем в Google Таблицы
+      const success = await saveToGoogleSheets(dataToSend);
       
       if (success) {
         alert('✨ Волшебно! Мы получили Ваш ответ! ✨');
         form.reset();
-        
-        // Закрываем веб-приложение если открыто в Telegram
-        if (window.TelegramWebViewProxy) {
-          window.TelegramWebViewProxy.postEvent('web_app_close');
-        }
       } else {
-        throw new Error('Не удалось отправить ответ');
+        throw new Error('Не удалось сохранить ответ');
       }
     } catch (error) {
       console.error('Ошибка:', error);
-      alert('❌ Магия не сработала. Пожалуйста, ответьте нам через Telegram');
+      alert('❌ Магия не сработала. Пожалуйста, попробуйте еще раз или свяжитесь с нами');
     } finally {
       // Восстанавливаем кнопку
       submitBtn.textContent = originalText;
