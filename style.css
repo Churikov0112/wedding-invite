@@ -26,8 +26,8 @@ body, html {
   font-family: 'Arial', sans-serif;
   scroll-behavior: smooth;
   background: #FEFAEE;
-  overscroll-behavior-y: none;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* Видео */

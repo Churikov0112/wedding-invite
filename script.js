@@ -222,9 +222,6 @@ function initApp() {
 
   let lastScrollY = 0;
   function handleScroll() {
-    if (window.scrollY < 10 && window.scrollY < lastScrollY) {
-      window.scrollTo(0, 0);
-    }
     lastScrollY = window.scrollY;
     updateTransitionPosition();
   }
